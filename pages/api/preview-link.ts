@@ -9,7 +9,11 @@ export default function handler(
   res: NextApiResponse<Data>
 ) {
   if (req.query.url) {
-    getLinkPreview(req.query.url as string).then((data) => {
+    console.log(req.query);
+    getLinkPreview(req.query.url as string, {
+      followRedirects: `manual`,
+      handleRedirects: () => true,
+    }).then((data) => {
       res.status(200).send(data);
     });
   } else {
